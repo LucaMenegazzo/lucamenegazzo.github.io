@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Survival Game</title>
+  <meta charset="utf-8">
+  <!-- Setting the viewport to make your website look good on all devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/video-js.css" />
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/kioskboard-1.3.3.css" />
+  <link rel="stylesheet" href="css/aos.css" />
+  <style>
+	.progress {
+		height: 300px;
+	}
+
+	.progress > svg {
+		height: 100%;
+		display: block;
+	}
+</style>
+</head>
+<body>
+	<!-- ProgressBar and Anime -->
+	<div id="container">
+		<div class='center'>
+			<div class='loader'>
+			  <div class='circle circle-1'></div>
+			  <div class='circle circle-2'></div>
+			  <div class='circle circle-3'></div>
+			  <div class='circle circle-4'></div>
+			</div>
+		</div>
+	</div>
+	<!-- background video -->
+	<video preload="auto" muted loop id="background_video" style="display: none;">
+	  <source src="video/bg.mp4" type="video/mp4">
+	</video>
+	<!-- game main content -->
+	<div id="page_content" class="page_content" style="display: none;">
+		<div id="page_header" class="c_navbar">
+			<a type="button" class="btn btn-light btnR" href="#page_1">Home</a>	
+			<a type="button" class="btn btn-light btnR" href="#rules">Rules</a>	
+			<a type="button" class="btn btn-light btnR" href="#about">About</a>	
+		</div>
+		<!-- Home page, where user can input his name and start to play -->
+		<section id="page_1" class="page">
+			<div class="infoC">
+			</div>
+			<div class="story_content">
+				<p style="text-align: center;">
+				<input class="virtual-keyboard" id="name_input" data-kioskboard-type="keyboard" data-kioskboard-specialcharacters="false" placeholder="Insert your name" />
+				<button type="button" class="btn btn-light btnR" onclick="playGame()">Play</button>
+				</p>
+			</div>
+		</section>
+		<!-- Rules page, where user can see the game rules -->
+		<section id="rules" class="page">
+			<div class="infoC">
+			</div>
+			<div class="story_content">
+				<h3>Rules:</h3>
+				<p>
+				<br>
+				The aim of this game is to make the protagonist survive as long as possible. In fact, during the plot of this survival story you will have the possibility to choose what to make the protagonist do and what not to make him do. Some of these choices, if not taken with caution, could lead the protagonist to death.
+				<br><br>
+				Moreover, at the end of this game, if you are able to make him survive, you will know how long it took you to get to the end of this adventure.
+				</p>
+			</div>
+		</section>
+		<!-- About page, where user can see more info about this game -->
+		<section id="about" class="page">
+			<div class="infoC">
+			</div>
+			<div class="story_content">
+				<h3>About:</h3>
+				<p>
+				<br>
+		 		In this game, the protagonist is on a direct flight from Washington D.C. to Buenos Aires, in Argentina, to spend the honeymoon with his wife. Due to a turbine engine failure, the pilot is forced to make an emergency landing. The only point where it can be done is in the middle of the Amazon rainforest. The impact on the ground is very violent that the aircraft brakes into two parts and the rear part starts to burn. For most of the passengers there was no escape. 
+		 		<br><br>
+		 		There are only five survivors, him, his wife and three other guys. Everybody is panicked, they try to can call for help from the cockpit but all radio communications are cut off and there is no other way than try to repair it. The protagonist will have to survive as long as possible, hoping that someone will be able to trace where the plane crashed. During all this time he will run into some dangers and obstacles in which he will have to make decisions. In fact, he will have to decide whether to trust his companions and help each other or whether to rely only on his wife. 
+		 		<br><br>
+		 		The three guys, because the resources were running out, will start panicking and try to steal all the food and water left. These choices, if wrong, could lead the player to die and to restart the game from the beginning. Therefore, to survive, he will have to find food and water in the forest, but to do this he will come across hungry predators who will try to attack him. He will have to choose whether to fight them or to run away. 
+		 		<br><br>
+		 		To obtain useful materials for his survival, he will have to solve mini-games. Those materials will help him a lot. If the protagonist makes appropriate choices, he will be able to rebuild the radio system and call for help to go back home.
+				</p>
+			</div>
+		</section>
+		<!-- The very first game page, let player know about the accident and the situation of the protagonist -->
+		<section id="page_2" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 1/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You are direct on a flight from Washington D.C. to Buenos Aires, in Argentina, to spend the honeymoon with your wife Jasmine. At some point, the aircraft commander warns you that due to an engine malfunction, you are forced to make an emergency landing and fasten your seat belts and remain calm.
+				<br><br>
+				You are about to land in the middle of the Amazon rainforest. The plane, while landing, picks up more and more speed and the beep sound of the alarm gets louder and louder. You are both panicked, some passengers start screaming in despair.
+				<br><br>
+				The impact on the ground is very violent that the aircraft brakes into two parts and the rear part immediately starts to burn. Because of the impact, your foot fractures and you fall asleep from pain and panic.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_3" onclick="startTimer()">Continue</a>	
+			</div>
+		</section>
+		<section id="page_3" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 1/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You wake up lost after the airplane crush and when you look around you see almost all the passengers dead and covered in blood.<br>
+				You're scared and caught up in the turmoil you make sure your wife Jasmine is okay.
+				<br><br>
+				Getting up with difficulty from the ankle, you see that the rear of the plane is on fire. You run into the cockpit to ask for help but all radio communications are cut off.<br>
+				You are hungry and thirsty and your only available supplies are in the hold of the plane.
+				<br><br> 
+				What do you do?
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_4">You save the luggages before they burn</a>
+				<a class="btn btn-danger btnCont" href="#page_5">You go for food in the jungle</a>
+			</div>
+		</section>
+		<section id="page_4" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 2/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You head to the hold of the plane to save your luggage, some have been burned but you manage to save some from which you recover some sandwiches, drinks and clean clothes that you may need for the following days or to build a hut or weapons.
+				<br><br>
+				You also find a compass and some useful items that may help you to repair the radio system and call for help. The next move is to
+				<br><br>
+				Subsequently, you notice that there are also 3 other guys who survived with you. Ask if everyone is okay and if they have cell phones to call for help but the phone lines are down.
+				<br> <br>
+				What do you decide to do?
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_11">You look for a safe place</a>
+				<a class="btn btn-danger btnCont" href="#page_12">You divide the tasks between you</a>
+			</div>
+		</section>
+		<section id="page_5" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 3/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You decide to venture into the forest with your wife in search of food and a river where you can quench your thirst. You start wandering around the forest but you can hardly find anything but berries.
+				<br> <br>
+				So try to divide to sieve the area in less time. You collect a lot of food and fruit but you no longer remember the way you traveled to get here. You try to shoot in the forest for quite some time but you always find yourself in the same place.
+				<br> <br>
+				You are desperate and you don't know what to do anymore.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_5_1">You cry out for help</a>	
+				<a class="btn btn-danger btnCont" href="#page_6">You walk back in the footsteps</a>	
+			</div>
+		</section>
+		<section id="page_5_1" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 4/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You cry out for help hoping that either your wife or the three boys will hear you, but no one answers you.<br> 
+				You start screaming louder running here and there but still nothing. The night is falling and the temperatures are dropping.
+				<br><br>
+				You decide to stop and think but you keep hearing strange noises. You're scared.<br>
+				A group of animals approaches you. You try to escape but they are too fast for you and they kill you.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_1" onclick="gameFailed()">Restart</a>
+			</div>
+		</section>
+		<section id="page_6" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 4/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				After taking a deep breath you walk slowly back in the footsteps.<br>
+				Now that you have a clearer mind and no longer panicked, you find your wife but there is no trace of the three boys. The only supplies you have found are some food and water in a flask. 
+				<br><br>
+				You are aware that there are not many supplies and that they could never be enough for both of you.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_7">Continue</a>
+			</div>
+		</section>
+		<section id="page_7" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 5/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You ask your wife to stay where she is and you venture back into the forest in search of more food.<br> 
+				Go far and wide but it now seems impossible to find provisions even just to survive the night.
+				<br> <br>
+				Regretfully, you decide to walk back to your wife to give her this bad news but she reassures you that tomorrow, with the sunlight, it will be easier for both of you to find more food and clean water.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_8">Continue</a>
+			</div>
+		</section>
+		<section id="page_8" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 6/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You have to make a tough decision now. Either you save your life or the one of your wife Jasmine's. It's all in your hands now.<br>
+				You think for a long time and with the excuse of looking for other food you move away from her.
+				<br><br>
+				What do you do now?
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_9">Save your wife</a>
+				<a class="btn btn-danger btnCont" href="#page_10">Save yourself</a>
+			</div>
+		</section>
+		<section id="page_9" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 7/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You decide to save your wife, Jasmine.<br>
+				You have to find an excuse to get away in the forest. Once found you get away, looking for a way to commit suicide in order to die quickly.
+				<br><br>
+				Later on, you find a rope and decide to hang yourself in a tree further away.<br>
+				This selfless choice will allow your wife to survive until the arrival of help and to rerurn safe at home, even though she is alone now.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_1" onclick="gameFailed()">Restart</a>
+			</div>
+		</section>
+		<section id="page_10" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 7/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You decide that your life is more important than Jasmine's one. <br>
+				When night falls, you make sure she is asleep so you can grab all the supplies and run into the middle of the forest.
+				<br> <br>
+				You find a small cave where you can camp and spend the rest of the night. <br>
+				The next morning you wake up because you hear your wife screams of pain. You run where you left her but it's too late now. You find her in a bed of blood.
+				<br> <br>
+				You are desperate and do not know how to forgive yourself for what you have done. <br>
+				She died because of you.<br>
+				You hang yourself in a tree in despair and die too.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_1" onclick="gameFailed()">Restart</a>
+			</div>
+		</section>
+		<section id="page_11" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 3/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You look for a safe place where to stay but as you venture through the forest a pack of hungry wolves approaches you.<br>
+				You try to scare them with a stick but it is useless because there are too many.
+				<br><br>
+				You try to fight in order to save your wife's life but in spite of all your efforts you are both killed at the end.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_1" onclick="gameFailed()">Restart</a>
+			</div>
+		</section>
+		<section id="page_12" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 3/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You have to share the tasks between the rest of the passengers.
+				<br><br>
+				In fact, there is the need someone that somebody stand guard on the first night, who, instead, goes in search of wood to light a fire in order to cook food and keep predators away.<br>
+				Also, there is the need that someone trace the path to the river in order to have unlimited water resources.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_13">Continue</a>	
+			</div>
+		</section>
+		<section id="page_13" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 4/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				It's already the fourth day and in the neighboring areas food was becoming scarce and there was still no trace of the rescues.<br>
+				it was Jasmine's turn to keep watch during the night, but one of the three boys intends to keep watch that night.
+				<br><br>
+				Do you trust them or is it just a trap?
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_14">You don't trust them</a>	
+				<a class="btn btn-danger btnCont" href="#page_15">You trust them</a>
+			</div>
+		</section>
+		<section id="page_14" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 5/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You decided not to trust him.<br>
+				It is almost night and the three boys decide to go to sleep earlier than usual. 
+				<br><br>
+				It seems suspicious to you that's why you choose to yell at their conversation and, in the end, you find out that they were plotting something against you two because they have discovered that the resources will never be enough for all of you.
+				<br><br>
+				You stay up all night thinking about it because you are in doubt about what to do.<br> 
+				There are only two choices now.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_16">You run away from them</a>	
+				<a class="btn btn-danger btnCont" href="#page_17">You try to solve the situation</a>
+			</div>
+		</section>
+		<section id="page_15" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 5/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You think it is better if one of the three boys stays to stand guard instead of your wife. You assume they think it's more reliable that a guy do the guard at night.
+				<br><br>
+				The next morning, when you wake up, you find that the three guys escaped during the night and took with them all the provisions you all had collected in the previous days.<br>
+				You desperately search for food all day but the forest now seems empty.
+				<br><br>
+				A few days later you both starve.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_1" onclick="gameFailed()">Restart</a>
+			</div>
+		</section>
+		<section id="page_16" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 6/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You decide to leave the group because if they didn't succeed that night they will try to do the same thing one of the following nights.<br>
+				You and your wife, quickly, run away from them so they can't track you but as soon as you stop, Jasmine starts screaming in fear from a huge beehive full of wasps.
+				<br> <br>
+				These, believing they are threatened, to defend themselves, begin to chase you and sting you.
+				The sting of these wasps, unfortunately, is lethal, in fact, after a few meters you will die on the ground.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_1" onclick="gameFailed()">Restart</a>
+			</div>
+		</section>
+		<section id="page_17" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 6/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				As a grown man you try to resolve the situation with the three guys.<br> 
+				Talking to them, you understand that they are psychologically weak.
+				<br><br> 
+				You reassure them that you will make it and that they will be able to go home to see their friends and family again.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_18">Continue</a>
+			</div>
+		</section>
+		<section id="page_18" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 6/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				After talking to them for a long time, they feel safer now and they also apologise because they thougth to abandon you.
+				<br><br>
+				Once you have clarified you decide to get back on the road in search of find new resources in order to survive longer.<br>
+				You walk for about two hours and accumulate a good amount of food that may last for the next three days.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_19">Continue</a>
+			</div>
+		</section>
+		<section id="page_19" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 7/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You realise that you forgot the map you drew for the discovered places.<br>
+				You think it's vital for you to survive but the three guys point out that the place you started from is about an hour from where you currently are and that they think you can still survive without it. 
+				<br><br>
+				You dont know what to do now.<br>
+				Do you go back to get it or do you go on?
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_20">You go back</a>
+				<a class="btn btn-danger btnCont" href="#page_21">You go on</a>
+			</div>
+		</section>
+		<!-- Final page, displays when user success and complete -->
+		<section id="page_20" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 8/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You decide to go back and get the map but you don't remember exactly the way you came before.<br> 
+				You have already been on the road for more than an hour now and there is no trace of your previous camp.
+				<br><br>
+				At some point, in the distance, you notice something strange. It seems to be a chest in the forest. You approach it in order to open it but, as you are in front of it, you find out that this crate has a strange mechanism to open it.
+				<br><br>
+				You have now figured out how to unlock it, will you open it or not?
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_22" onclick="gameComplete()">Open</a>
+			</div>
+		</section>
+		<section id="page_21" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 7/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				You decided to proceed the adventure but, at some point, you hear the noise of a helicopter.<br>
+				Help has arrived because they have been able to track where the plane crashed.
+				<br><br>
+				You don't know how to reach that place without the map now. You try to run towards them based on where the noise was coming from.<br>
+				They founded only dead bodies and they are forced to return the base to annouce the death of all the passengers.
+				<br><b>
+				The hopes of a rescue are over.
+				</p>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_1" onclick="gameFailed()">Restart</a>
+			</div>
+		</section>
+		<section id="page_22" class="page">
+			<div class="infoC">
+				
+				<div class="infoContent">Days 9/9</div>
+				<div class="infoContent playerName">Name : xxxx</div>
+			</div>
+			<div class="story_content">
+				<p>
+				Once you have opened it, you find some useful objects inside.<br>
+				There is a tool that allow you to repair the radio communications system. You spent two hours repairing it and in the end you try to call for help and after five minutes they answer you back.
+				<br><br>
+				In a couple of hours, an helicopter land there and save all of you.
+				<br><br><br>
+				</p>
+				<h3 id="congratulation_note">
+					Congratulation! You completed the game in <span class="completed_seconds">0</span> seconds.
+				</h3>
+			</div>
+			<div class="footerC">
+				<a class="btn btn-danger btnCont" href="#page_1" onclick="gameFailed()">Restart</a>
+			</div>
+		</section>
+	</div>
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/video.js"></script>
+	<script src="js/progressbar.js"></script>
+	<script src="js/anime.js"></script>
+	<script src="js/easytimer.js"></script>
+	<script src="js/kioskboard-1.3.3.js"></script>
+	<script src="js/aos.js"></script>
+	<script src="js/myAnime.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
